@@ -6,6 +6,8 @@ class TambahTamuPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
 
+  TambahTamuPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,11 +72,11 @@ class TambahTamuPage extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Tambah'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 minimumSize: const Size(double.infinity, 50),
               ),
+              child: const Text('Tambah'),
             ),
           ],
         ),

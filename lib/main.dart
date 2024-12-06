@@ -1,12 +1,20 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3148511285.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:2103594361.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3692417589.
 import 'package:flutter/material.dart';
 import 'list_tamu_page.dart';
 import 'tambah_tamu_page.dart';
 import 'db/db_helper.dart';
+import 'info_page.dart';
+import 'setting.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,12 +29,15 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
     @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, int> guestData = {};
+  int _selectedIndex = 1; // Indeks untuk halaman Home
 
   @override
   void initState() {
@@ -45,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tamuku', style: TextStyle(color: Colors.black)),
+        title: const Text('Tamuku', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -95,9 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15), // Radius border
               ),
               elevation: 4, // Shadow
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
@@ -127,9 +138,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15), // Radius border
               ),
               elevation: 4, // Shadow
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
@@ -164,9 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15), // Radius border
               ),
               elevation: 4, // Shadow
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
@@ -192,17 +203,48 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+
+          // Contoh penggunaan navigasi:
+          if (index == 0) {
+            // Navigasi ke halaman Settings (ganti dengan halaman Settings Anda)
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+          } else if (index == 1) {
+            // Navigasi ke halaman Home (halaman saat ini, tidak perlu navigasi)
+          } else if (index == 2) {
+            // Navigasi ke halaman Info (ganti dengan halaman Info Anda)
+            Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage()));
+          }
+
+          // Anda perlu mengganti SettingsPage() dan InfoPage() dengan halaman
+          // yang sesuai di aplikasi Anda.
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+            backgroundColor: _selectedIndex == 0 ? Colors.blue : null,
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            backgroundColor: _selectedIndex == 1 ? Colors.blue : null,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
             label: 'Info',
+            backgroundColor: _selectedIndex == 2 ? Colors.blue : null,
           ),
         ],
+        selectedItemColor: Colors.blue, // Warna teks item yang dipilih
+        unselectedItemColor: Colors.grey, // Warna teks item yang tidak dipilih
       ),
     );
   }

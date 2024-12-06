@@ -1,7 +1,10 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:2839702981.
 import 'package:flutter/material.dart';
 import 'db/db_helper.dart';
 
 class ListTamuPage extends StatelessWidget {
+  const ListTamuPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,16 @@ class ListTamuPage extends StatelessWidget {
           }
 
           if (snapshot.data!.isEmpty) {
-            return const Center(child: Text('Belum ada tamu'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/error.png', height: 200),
+                  const SizedBox(height: 20),
+                  const Text('Belum ada tamu', style: TextStyle(fontSize: 18)),
+                ],
+              ),
+            );
           }
 
           return ListView.builder(
